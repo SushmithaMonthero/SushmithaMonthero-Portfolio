@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sushmitha Monthero | Design & Tech Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #f4f4f9; /* Light Grey/White Background */
+            color: #333; /* Dark Grey Text */
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Variables for easy color changes */
+        :root {
+            --primary-color: #ffc300; /* Marigold/Gold Accent */
+            --secondary-color: #1a1a1a;
+            --text-color: #333;
+            --background-color: #f4f4f9;
+        }
+
+        /* UTILITIES */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 30px;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo a {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--text-color);
+            margin-left: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            padding-bottom: 5px;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(to right, #ffffff, #f9f9f9);
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .hero-left {
+            max-width: 600px;
+        }
+
+        .hero-left p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .hero-left h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero-left h1 span {
+            color: var(--primary-color);
+        }
+
+        .typewrite {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            border-right: 3px solid var(--primary-color); /* Cursor effect */
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color); }
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .buttons a {
+            display: inline-block;
+            padding: 12px 25px;
+            margin-right: 15px;
+            font-weight: 600;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-color);
+            border: 2px solid #ccc;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .hero-right img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        h2.section-title {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: var(--secondary-color);
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* ABOUT */
+        .about p {
+            font-size: 17px;
+            max-width: 800px;
+            color: #555;
+        }
+
+        /* SKILLS */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-group h3 {
+            font-size: 20px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .skill-group ul {
+            list-style: none;
+        }
+
+        .skill-group ul li {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 3px;
+            margin-bottom: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            font-size: 15px;
+            transition: transform 0.2s;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .skill-group ul li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* EXPERIENCE & EDUCATION TIMELINE */
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: #ddd;
+            top: 0;
+            bottom: 0;
+            left: 31px; /* Adjust for padding on small screens */
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 0 10px 70px; /* Space for the circle and line */
+            position: relative;
+            background-color: inherit;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            left: 23px;
+            background-color: var(--primary-color);
+            border: 4px solid white;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item h3 {
+            color: var(--secondary-color);
+            font-size: 20px;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .timeline-item h4 {
+            font-size: 15px;
+            color: #777;
+            font-weight: 400;
+        }
+
+        .timeline-item p {
+            color: #555;
+            margin-top: 8px;
+            font-size: 15px;
+        }
+
+        /* CONTACT */
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .contact-info-item {
+            margin-bottom: 15px;
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info-item i {
+            color: var(--primary-color);
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .contact-info-item a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-info-item a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-icons a {
+            color: var(--secondary-color);
+            margin-right: 20px;
+            font-size: 24px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .contact-form-wrapper {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form-wrapper input,
+        .contact-form-wrapper textarea {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: var(--text-color);
+            font-family: inherit;
+        }
+
+        .contact-form-wrapper button {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .contact-form-wrapper button:hover {
+            background: #d4a700;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: var(--secondary-color);
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background: white;
+                box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05);
+            }
+            nav.active {
+                display: flex;
+            }
+            nav a {
+                margin: 10px 0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content {
+                text-align: center;
+                justify-content: center;
+            }
+            .hero-right {
+                order: -1;
+                margin-bottom: 30px;
+            }
+
+            h2.section-title {
+                font-size: 30px;
+                text-align: center;
+                width: 100%;
+            }
+            h2.section-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .buttons a {
+                display: block;
+                margin: 10px auto;
+            }
+            .timeline-item {
+                padding-left: 50px;
+            }
+            .timeline-container::after {
+                left: 20px;
+            }
+            .timeline-item::after {
+                left: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo"><a href="#home">Sushmitha Monthero.</a></div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <nav id="main-nav">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<section id="home" class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-left">
+                <p>Hello, I'm</p>
+                <h1>Sushmitha <span>Monthero</span></h1>
+                <div class="typewrite" data-period="2000" data-type='["UI/UX Design Intern", "IT Support Engineer", "Digital Marketing Executive", "Problem-Solver"]'></div>
+                <div class="buttons">
+                    <a href="#" class="btn-primary">Download Resume</a> 
+                    <a href="#contact" class="btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <img src="path/to/your/image.jpg" alt="Sushmitha Monthero Profile"> 
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="about">
+    <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <p>
+MCA graduate with 1+ year of experience in digital marketing, web hosting operations, UI/UX design, and technical support gained through hands-on industry exposure. Experienced in team coordination and delivering user-focused, impactful results. Highly motivated to contribute to diverse roles in IT, analytics, HR, and digital domains. Open to opportunities in IT, data analysis, HR, design, and digital marketing to drive organizational growth and innovation.
+        </p>
+    </div>
+</section>
+
+<section id="skills" class="skills">
+    <div class="container">
+        <h2 class="section-title">Technical & Professional Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-group">
+                <h3>Technical & Web Hosting</h3>
+                <ul>
+                    <li>Web Hosting (cPanel, WHM, Plesk)</li>
+                    <li>MySQL & SQL (Database Admin)</li>
+                    <li>SSL & Website Migration</li>
+                    <li>Microsoft Excel</li>
+                    <li>CRM</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <h3>Design & Digital Marketing</h3>
+                <ul>
+                    <li>UI/UX Design & Prototyping</li>
+                    <li>Figma & Canva</li>
+                    <li>Digital Marketing Strategy</li>
+                    <li>Social Media Analytics</li>
+                    <li>Poster & Visual Design</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <h3>Professional & Soft Skills</h3>
+                <ul>
+                    <li>Effective Communication (Verbal & Written)</li>
+                    <li>Problem-Solving & Critical Thinking</li>
+                    <li>Team Collaboration & Coordination</li>
+                    <li>Process Documentation</li>
+                    <li>HR Coordination</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <h3>Certifications & Languages</h3>
+                <ul>
+                    <li>Principles of UI/UX Design (Cert.)</li>
+                    <li>Human Resource Associate Professional (Cert.)</li>
+                    <li>English (Fluent)</li>
+                    <li>Hindi (Fluent)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="experience" class="experience">
+    <div class="container">
+        <h2 class="section-title">Professional Experience & Internships</h2>
+        <div class="timeline-container">
+
+            <div class="timeline-item">
+                <h3>UI/UX Design Intern | Pulsecode Technology</h3>
+                <h4>April 2025 - Sep 2025</h4>
+                <p>Conducted **user research** (interviews, surveys) and created detailed **journey maps** to inform design decisions. Developed **low and high-fidelity wireframes** and interactive prototypes using **Figma**. Contributed to the UX design for a Gamified GPS Driving Experience mobile app, focusing on safe and user-centered design.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Digital Marketing Executive | DrawMyCareer</h3>
+                <h4>April 2025 - Sep 2025</h4>
+                <p>Designed compelling **posters and marketing visuals** using **Canva** to enhance brand appeal and engagement. Managed social media content and assisted in digital campaigns, directly contributing to improved **brand reach**.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>IT Support Engineer | GlowTouch Technologies</h3>
+                <h4>June 2023 - Nov 2023</h4>
+                <p>Managed and maintained **web hosting environments** (cPanel, Plesk Panel, WHM). Handled configuration of domains, subdomains, DNS settings, and implemented email accounts. Set up and managed databases using **MySQL and phpMyAdmin**.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="activities" class="activities" style="background: #fcfcfc;">
+    <div class="container">
+        <h2 class="section-title">Achievements & Leadership</h2>
+        <div class="timeline-container">
+
+            <div class="timeline-item">
+                <h3>Event Head | National Level IT Fest</h3>
+                <h4>Leadership & Management</h4>
+                <p>Led all aspects of a National Level IT Fest, including overall **event planning, coordination, and team management**, demonstrating strong organizational and leadership abilities.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Participant | Adversarial Nibbler Research Driven Program</h3>
+                <h4>Ethical AI & Research</h4>
+                <p>Participated in a 3-month research program to audit **AI behavior** through prompt-based testing, contributing to the development of ethical AI practices.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <div class="container">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>My Details</h3>
+                <div class="contact-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Dubai, United Arab Emirates</p>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:sushmithamonthero0606@gmail.com">sushmithamonthero0606@gmail.com</a>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+971 569833926</p>
+                </div>
+                <div class="social-icons" style="margin-top: 30px;">
+                    <a href="https://www.linkedin.com/in/sushmitha-monthero" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a> 
+                </div>
+            </div>
+            <div class="contact-form-wrapper">
+                <h3>Send Me a Message</h3>
+                <form class="contact-form" action="https://formsubmit.co/sushmithamonthero0606@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="Portfolio Contact: Opportunity for Sushmitha">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="text" name="name" placeholder="Your Full Name" required />
+                    <input type="email" name="email" placeholder="Your Email Address" required />
+                    <textarea name="message" rows="5" placeholder="Tell me about the opportunity..." required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Sushmitha Monthero. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // Typing Animation (Revised for modern function naming)
+    const TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.isDeleting = false;
+        this.tick();
+    };
+
+    TxtType.prototype.tick = function() {
+        let i = this.loopNum % this.toRotate.length;
+        let fullTxt = this.toRotate[i];
+        
+        if (this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+        let delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+            delta = this.period;
+            this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.loopNum++;
+            delta = 500;
+        }
+
+        setTimeout(() => { this.tick(); }, delta);
+    };
+
+    window.onload = function() {
+        let elements = document.getElementsByClassName('typewrite');
+        for (let i = 0; i < elements.length; i++) {
+            let toRotate = elements[i].getAttribute('data-type');
+            let period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+                new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+    };
+
+    // Mobile Menu Toggle
+    function toggleMenu() {
+        document.getElementById("main-nav").classList.toggle("active");
+    }
+</script>
+</body>
+</html>
