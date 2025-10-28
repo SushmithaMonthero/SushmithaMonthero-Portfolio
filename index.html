@@ -165,14 +165,57 @@
             color: var(--primary-color);
         }
 
+        /* Profile Image and Spinning Ring Styles (Reference for Project Card) */
+        .hero-right {
+            position: relative; 
+            width: 250px; 
+            height: 250px; 
+        }
+
+        .profile-pic-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1; 
+        }
+        
         .hero-right img {
-            width: 250px;
-            height: 250px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
             border: 8px solid white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: none;
         }
+
+        .spinning-ring {
+            content: '';
+            position: absolute;
+            top: -10px; 
+            left: -10px; 
+            right: -10px; 
+            bottom: -10px; 
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: var(--primary-color); 
+            border-right-color: var(--primary-color); 
+            animation: spin 3s linear infinite; 
+            z-index: 0; 
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* End Profile Image Styles */
+
 
         /* SECTIONS */
         section {
@@ -241,6 +284,106 @@
             transform: translateY(-2px);
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
         }
+
+        /* PROJECTS SECTION STYLES - FINAL SPINNING BORDER */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px; 
+            justify-content: center;
+        }
+
+        /* Project Card Wrapper: Acts as the frame for the spinning effect */
+        .project-card {
+            background: #fff; 
+            padding: 3px; /* This padding creates the visible track for the color to run in */
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden; /* Important to keep the inner mask clean */
+            min-height: 350px;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 1. Spinning Gradient (::before) - The rotating color field */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            /* Make the element huge so the conic gradient covers all corners during rotation */
+            width: 250%; 
+            height: 250%;
+            top: -75%; 
+            left: -75%;
+            border-radius: inherit; 
+            z-index: 0; 
+            
+            /* Conic Gradient: creates the sharp color band that spins */
+            background: conic-gradient(
+                from 0deg, 
+                #ffffff00 0%, /* Transparent */
+                var(--primary-color) 5%, /* Start of visible color */
+                var(--primary-color) 15%, /* End of visible color */
+                #ffffff00 30%, /* Back to transparent */
+                #ffffff00 100%
+            );
+
+            /* Animation: 3s fast rotation */
+            animation: border-spin 3s linear infinite; 
+            filter: none; /* Crucial: removes blur for a crisp line */
+        }
+
+        /* 2. Inner Content Mask (::after) - This is the white surface the user sees */
+        .project-card::after {
+            content: '';
+            position: absolute;
+            /* Push the mask inward to reveal the thin, spinning ::before element */
+            top: 3px; 
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: white; /* Card background color */
+            border-radius: 9px; 
+            z-index: 1; /* Above the ::before spinner */
+        }
+
+        /* Content needs to be the highest z-index to sit on top of the mask */
+        .project-content {
+            position: relative;
+            z-index: 2; /* Highest z-index */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 27px; /* Add padding back to content */
+        }
+
+        /* Project Links Styling */
+        .project-links {
+            margin-top: auto; /* Push links to the bottom */
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .project-links a {
+            font-size: 28px; 
+            color: var(--secondary-color); 
+            margin-right: 20px;
+            transition: color 0.3s;
+        }
+        .project-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Animation Keyframes for the Spin */
+        @keyframes border-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* END PROJECTS SECTION STYLES */
+
 
         /* EXPERIENCE & EDUCATION TIMELINE */
         .timeline-container {
@@ -431,6 +574,9 @@
             .hero-right {
                 order: -1;
                 margin-bottom: 30px;
+                /* Center the image/wrapper on small screens */
+                margin-left: auto; 
+                margin-right: auto;
             }
 
             h2.section-title {
@@ -456,6 +602,11 @@
             .timeline-item::after {
                 left: 13px;
             }
+            
+            /* Adjust project card spacing for mobile view */
+            .projects-grid {
+                gap: 30px;
+            }
         }
     </style>
 </head>
@@ -470,6 +621,7 @@
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a> 
                 <a href="#experience">Experience</a>
                 <a href="#contact">Contact</a>
             </nav>
@@ -483,14 +635,18 @@
             <div class="hero-left">
                 <p>Hello, I'm</p>
                 <h1>Sushmitha <span>Monthero</span></h1>
-                <div class="typewrite" data-period="2000" data-type='["UI/UX Design Intern", "IT Support Engineer", "HR Assistant", "Problem-Solver"]'></div>
+                <div class="typewrite" data-period="2000" data-type='["UI/UX Design Intern", "IT Support Engineer", "Digital Marketing Executive", "Problem-Solver"]'></div>
                 <div class="buttons">
                     <a href="resume/Sushmitha Resume (2).pdf" class="btn-primary">Download Resume</a> 
                     <a href="#contact" class="btn-secondary">Get in Touch</a>
                 </div>
             </div>
             <div class="hero-right">
-                <img src="resume/sushmitha Photo.jpg" alt="Sushmitha Monthero Profile"> 
+                <div class="spinning-ring"></div>
+                <div class="profile-pic-wrapper">
+                    <!-- Note: Replace 'path/to/your/image.jpg' with the actual URL of your profile picture -->
+                    <img src="resume/sushmitha Photo.jpg" alt="Sushmitha Monthero Profile"> 
+                </div>
             </div>
         </div>
     </div>
@@ -500,7 +656,7 @@
     <div class="container">
         <h2 class="section-title">About Me</h2>
         <p>
-MCA graduate with 1+ years of diverse experience as an HR Assistant, complemented by expertise in web hosting operations and UI/UX design. Adept at HR processes, employee coordination, documentation, and workflow optimization, with a proven ability to deliver efficient, user-centric solutions. Strong team collaborator with a proactive approach, seeking opportunities in HR, IT, design, and digital domains to contribute to organizational growth and innovation.
+MCA graduate with 1+ year of experience in digital marketing, web hosting operations, UI/UX design, and technical support gained through hands-on industry exposure. Experienced in team coordination and delivering user-focused, impactful results. Highly motivated to contribute to diverse roles in IT, analytics, HR, and digital domains. Open to opportunities in IT, data analysis, HR, design, and digital marketing to drive organizational growth and innovation.
         </p>
     </div>
 </section>
@@ -519,19 +675,113 @@ MCA graduate with 1+ years of diverse experience as an HR Assistant, complemente
                     <li>CRM</li>
                 </ul>
             </div>
-
-            
+            <div class="skill-group">
+                <h3>Design & Digital Marketing</h3>
+                <ul>
+                    <li>UI/UX Design & Prototyping</li>
+                    <li>Figma & Canva</li>
+                    <li>Digital Marketing Strategy</li>
+                    <li>Social Media Analytics</li>
+                    <li>Poster & Visual Design</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <h3>Professional & Soft Skills</h3>
+                <ul>
+                    <li>Effective Communication (Verbal & Written)</li>
+                    <li>Problem-Solving & Critical Thinking</li>
+                    <li>Team Collaboration & Coordination</li>
+                    <li>Process Documentation</li>
+                    <li>HR Coordination</li>
+                </ul>
+            </div>
             <div class="skill-group">
                 <h3>Certifications & Languages</h3>
                 <ul>
                     <li>Principles of UI/UX Design (Cert.)</li>
                     <li>Human Resource Associate Professional (Cert.)</li>
-                  
+                    <li>English (Fluent)</li>
+                    <li>Hindi (Fluent)</li>
                 </ul>
             </div>
         </div>
     </div>
 </section>
+
+<!-- NEW PROJECTS SECTION -->
+<section id="projects" class="projects" style="background: #fcfcfc;">
+    <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+
+            <div class="project-card">
+                <!-- This card now uses a sharp, spinning border effect -->
+                <div class="project-content">
+                    <h3>Gamified GPS Driving Experience - UX Design</h3>
+                    
+                    <p>
+                        Engaged in the UX design process for a Gamified GPS Driving Experience mobile app, focused on promoting safe driving through engaging, user-centered design. My role involved translating complex safety features into intuitive game mechanics, such as point scoring for smooth acceleration and braking, and achievement badges for safe route completion. This required extensive prototyping in Figma, iterative testing with potential users, and detailed documentation of the user flows. The goal was to reduce distracted driving by making the navigation experience rewarding and fun.
+                    </p>
+
+                    <div class="project-links">
+                        <a href="https://github.com/SushmithaMonthero/SushmithaMonthero-Portfolio/blob/main/GPS/GPS.pdf" target="_blank" title="View Project Case Study (PDF)">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://github.com/SushmithaMonthero/SushmithaMonthero-Portfolio/blob/main/GPS/GPS.pdf" target="_blank" title="View Project Details">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PROJECT CARD: Weather App -->
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Weather App - Dynamic Forecast</h3>
+                    
+                    <p>
+                        A modern, responsive weather forecast application utilizing the OpenWeatherMap API. This project showcases asynchronous JavaScript for efficient data fetching and dynamic DOM manipulation. The application features a dark-themed glassmorphism UI with vibrant animated icons and provides real-time updates for temperature, humidity, and wind speed, offering a sleek and user-friendly experience on all devices.
+                    </p>
+
+                    <div class="project-links">
+                        <!-- Live Demo Link -->
+                        <a href="https://sushmithamonthero.github.io/Weather-App/" target="_blank" title="View Live Demo">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <!-- GitHub Link -->
+                        <a href="https://github.com/SushmithaMonthero/Weather-App" target="_blank" title="View on GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- END PROJECT CARD: Weather App -->
+            
+            <!-- NEW PROJECT CARD: Learn Sync -->
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Learn Sync - Academic Management System</h3>
+                    
+                    <p>
+                        A web-based academic management system that centralizes key postgraduate academic tracking, including internships, projects, MOOCs, and faculty mentorship. It utilizes role-based authentication for students, faculty, and HODs for submissions and oversight. Learn Sync automates manual paperwork, boosting transparency and efficiency. Key features include dynamic keyword-based project rejection analytics and mentorship insights.
+                    </p>
+
+                    <div class="project-links">
+                        <a href="https://github.com/SushmithaMonthero/Learn-Sync/blob/main/LEARN%20SYNC%20.pdf" target="_blank" title="View Project Details (PDF)">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://github.com/SushmithaMonthero/Learn-Sync/blob/main/LEARN%20SYNC%20.pdf" target="_blank" title="View Project Details (PDF)">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- END NEW PROJECT CARD: Learn Sync -->
+
+        </div>
+    </div>
+</section>
+<!-- END NEW PROJECTS SECTION -->
 
 <section id="experience" class="experience">
     <div class="container">
@@ -541,21 +791,19 @@ MCA graduate with 1+ years of diverse experience as an HR Assistant, complemente
             <div class="timeline-item">
                 <h3>UI/UX Design Intern | Pulsecode Technology</h3>
                 <h4>April 2025 - Sep 2025</h4>
-                <p>Conducted **user research** (interviews, surveys) and created detailed **journey maps** to inform design decisions. Developed **low and high-fidelity wireframes** and interactive prototypes using **Figma**. Contributed to the UX design for a Gamified GPS Driving Experience mobile app, focusing on safe and user-centered design.</p>
+                <p>Conducted user research (interviews, surveys) and created detailed journey maps to inform design decisions. Developed low and high-fidelity wireframes and interactive prototypes using Figma. Contributed to the UX design for a Gamified GPS Driving Experience mobile app, focusing on safe and user-centered design.</p>
             </div>
 
             <div class="timeline-item">
-                <h3>HR Assistant | DrawMyCareer</h3>
+                <h3>Digital Marketing Executive | DrawMyCareer</h3>
                 <h4>April 2025 - Sep 2025</h4>
-                <p>
-Managed and updated employee records, attendance, and HR data in Excel with accuracy.Assisted in recruitment and onboarding by scheduling interviews and preparing offer letters.Supported daily HR and administrative tasks, ensuring smooth coordination within the team.
-                </p>
+                <p>Designed compelling posters and marketing visuals using Canva to enhance brand appeal and engagement. Managed social media content and assisted in digital campaigns, directly contributing to improved brand reach.</p>
             </div>
 
             <div class="timeline-item">
                 <h3>IT Support Engineer | GlowTouch Technologies</h3>
                 <h4>June 2023 - Nov 2023</h4>
-                <p>Managed and maintained **web hosting environments** (cPanel, Plesk Panel, WHM). Handled configuration of domains, subdomains, DNS settings, and implemented email accounts. Set up and managed databases using **MySQL and phpMyAdmin**.</p>
+                <p>Managed and maintained web hosting environments(cPanel, Plesk Panel, WHM). Handled configuration of domains, subdomains, DNS settings, and implemented email accounts. Set up and managed databases using MySQL and phpMyAdmin.</p>
             </div>
 
         </div>
@@ -570,13 +818,13 @@ Managed and updated employee records, attendance, and HR data in Excel with accu
             <div class="timeline-item">
                 <h3>Event Head | National Level IT Fest</h3>
                 <h4>Leadership & Management</h4>
-                <p>Led all aspects of a National Level IT Fest, including overall **event planning, coordination, and team management**, demonstrating strong organizational and leadership abilities.</p>
+                <p>Led all aspects of a National Level IT Fest, including overall event planning, coordination, and team management, demonstrating strong organizational and leadership abilities.</p>
             </div>
 
             <div class="timeline-item">
                 <h3>Participant | Adversarial Nibbler Research Driven Program</h3>
                 <h4>Ethical AI & Research</h4>
-                <p>Participated in a 3-month research program to audit **AI behavior** through prompt-based testing, contributing to the development of ethical AI practices.</p>
+                <p>Participated in a 3-month research program to audit AI behavior through prompt-based testing, contributing to the development of ethical AI practices.</p>
             </div>
 
         </div>
@@ -603,7 +851,7 @@ Managed and updated employee records, attendance, and HR data in Excel with accu
                 </div>
                 <div class="social-icons" style="margin-top: 30px;">
                     <a href="https://www.linkedin.com/in/sushmitha-monthero" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/sushmithamonthero?igsh=MXh1YXRpZjgwZWtlZA==" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a> 
+                    <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a> 
                 </div>
             </div>
             <div class="contact-form-wrapper">
@@ -682,11 +930,4 @@ Managed and updated employee records, attendance, and HR data in Excel with accu
     }
 </script>
 </body>
-
 </html>
-
-
-
-
-
-
